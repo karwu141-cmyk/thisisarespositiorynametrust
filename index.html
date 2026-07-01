@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        /* Exact layout styling matching the reference image */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 30px;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        #task-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #767676;
+            background-color: #ffffff;
+            font-size: 16px;
+            outline: none;
+        }
+
+        #add-btn {
+            background-color: #f0f0f0;
+            color: #000000;
+            border: 1px solid #767676;
+            padding: 0 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #add-btn:hover {
+            background-color: #e5e5e5;
+        }
+
+        ul {
+            list-style: none;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        li {
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            font-size: 18px;
+            color: #000000;
+        }
+
+        li.completed {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .delete-btn {
+            background: #f0f0f0;
+            color: #000000;
+            border: 1px solid #767676;
+            padding: 8px 14px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .delete-btn:hover {
+            background: #e5e5e5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Structure matching the target layout exactly -->
+    <h1>To-Do List</h1>
+    
+    <div class="input-section">
+        <input type="text" id="task-input" autocomplete="off">
+        <button id="add-btn">Add</button>
+    </div>
+    
+    <ul id="task-list">
+        <!-- Preloaded tasks directly out of your reference image -->
+        <li>do this<button class="delete-btn">Remove</button></li>
+        <li>do that<button class="delete-btn">Remove</button></li>
+    </ul>
+
+    <!-- Functionality to add/remove elements dynamically -->
+    <script>
+        const taskInput = document.getElementById('task-input');
+        const addBtn = document.getElementById('add-btn');
+        const taskList = document.getElementById('task-list');
+
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            
+            if (taskText === "") {
+                return;
+            }
+
+            const li = document.createElement('li');
+            li.innerText = taskText;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.innerText = 'Remove';
+            deleteBtn.className = 'delete-btn';
+
+            li.appendChild(deleteBtn);
+            taskList.appendChild(li);
+
+            taskInput.value = "";
+
+            // Apply behaviors to the new task row
+            setupItemEvents(li, deleteBtn);
+        }
+
+        function setupItemEvents(li, deleteBtn) {
+            // Click the text area to cross it out
+            li.addEventListener('click', function(e) {
+                if (e.target.tagName !== 'BUTTON') {
+                    li.classList.toggle('completed');
+                }
+            });
+
+            // Click the remove button to delete the item
+            deleteBtn.addEventListener('click', function() {
+                li.remove();
+            });
+        }
+
+        // Apply dynamic triggers to the pre-rendered reference image tasks
+        document.querySelectorAll('ul li').forEach(li => {
+            const btn = li.querySelector('.delete-btn');
+            setupItemEvents(li, btn);
+        });
+
+        // Click handlers
+        addBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addTask();
+            }
+        });
+    </script>
+</body>
+</html>
