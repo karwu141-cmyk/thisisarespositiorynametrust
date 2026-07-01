@@ -1,0 +1,27 @@
+li {
+    background: #ffffff;
+    padding: 20px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    font-size: 18px;
+    color: #000000;
+    
+    /* 1. This makes the expansion effect look smooth instead of snapping instantly */
+    transition: all 0.2s ease-in-out; 
+}
+
+/* 2. This rule activates ONLY when your mouse hovers over a task */
+li:hover {
+    padding: 30px 20px; /* Increases the top and bottom spacing from 20px to 30px */
+    transform: scale(1.0); /* Slightly grows the box size by 2% */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Makes the shadow deeper so it looks like it floats up */
+}
+
+li.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
